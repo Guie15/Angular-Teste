@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app = "listaTelefonica">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista Telefonica</title>
+  <link rel="stylesheet" type="text/css" href="src/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-controller = "listCtrl">
+  
+  <div class="jumbotron">
+    <h3> <strong> {{hello}} </strong></h3>
+    <table class="table">
+      <tr>
+        <th> </th>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>Operadora</th>
+        <th></th>
+      </tr>
+      <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos">
+        <td><input type="checkbox" ng-model="contato.selecionado"></td>
+        <td>{{contato.nome}}</td>
+        <td>{{contato.telefone}}</td>
+        <td>{{contato.operadora.nome}}</td>
+        <td><div style="height: 20px; width: 20px;"  ng-style="{'background-color':contato.cor}" ></div></td>
+      </tr>
+      
+    </table>
+    
+    <hr/>
+    
+    <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome"/>
+    <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone">
+    <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
+      <option value="">Selecione Uma Operadora</option>
+    </select>
+    <button class="btn btn-primary btn-block" ng-click="adicionar(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+    <button class="btn btn-danger btn-block" ng-click="apagar(contatos)"   ng-show="isContatoSelecionado(contatos)">Apagar Contato</button>
+    
+    
+  </div>
+  
+  <script src="src/angular.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
